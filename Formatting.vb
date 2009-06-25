@@ -111,6 +111,7 @@ Public Module Formatting
 	Private Sub recurseItems(ByVal Item As ProjectItem, ByVal depth As Integer, ByVal taskRoutine As task)
 		Dim indent As String = New String("-", depth)
 		Debug.Print(indent + " " + Item.Name)
+		taskRoutine(Item)
 		If Not Item.ProjectItems Is Nothing Then
 			For Each Child As ProjectItem In Item.ProjectItems
 				taskRoutine(Child)
