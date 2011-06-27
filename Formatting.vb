@@ -1,4 +1,4 @@
-
+﻿
 ' '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '  Visual Studio format all files macro.
 '  Copyright (C) 2009 Tim Abell <tim@timwise.co.uk>
