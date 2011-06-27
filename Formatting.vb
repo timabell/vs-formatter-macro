@@ -33,13 +33,14 @@ Imports System.Text
 
 Public Module Formatting
 
-    Dim allowed As List(Of String) = New List(Of String)
-    Dim processed As Integer = 0
-    Dim ignored As Integer = 0
-    Dim errors As StringBuilder = New StringBuilder()
-    Dim skippedExtensions As List(Of String) = New List(Of String)
+    Dim allowed As List(Of String)
+    Dim processed As Integer
+    Dim ignored As Integer
+    Dim errors As StringBuilder
+    Dim skippedExtensions As List(Of String)
 
     Public Sub FormatProject()
+        allowed = New List(Of String)
         allowed.Add(".master")
         allowed.Add(".aspx")
         allowed.Add(".ascx")
@@ -51,6 +52,12 @@ Public Module Formatting
         allowed.Add(".htm")
         allowed.Add(".html")
         allowed.Add(".js")
+
+        processed = 0
+        ignored = 0
+        errors = New StringBuilder
+        skippedExtensions = New List(Of String)
+
         Try
             recurseSolution(AddressOf processItem)
         Catch ex As Exception
