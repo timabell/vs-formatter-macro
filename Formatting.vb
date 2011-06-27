@@ -103,6 +103,7 @@ Public Module Formatting
             End Try
             window.Activate()
             DTE.ExecuteCommand("Edit.FormatDocument", "")
+            DTE.ExecuteCommand("EditorContextMenus.CodeWindow.OrganizeUsings.RemoveAndSort", "")
         Catch ex As Exception
             Debug.Print("error processing file: " + ex.Message)
             errors.AppendLine("error processing file " + Item.Name + ": " + ex.Message)
