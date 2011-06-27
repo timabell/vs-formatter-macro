@@ -90,16 +90,27 @@ Public Module Formatting
 
     Private Sub formatItem(ByVal Item As ProjectItem)
         Debug.Print("processing file " + Item.Name)
+        Dim window As EnvDTE.Window
         Try
-            Dim window As EnvDTE.Window
-            window = Item.Open()
+            Try
+                window = Item.Open(ViewKind:=Constants.vsViewKindCode)
+            Catch
+                Try
+                    window = Item.Open(ViewKind:=Constants.vsViewKindTextView)
+                Catch
+                    window = Item.Open(ViewKind:=Constants.vsViewKindAny)
+                End Try
+            End Try
             window.Activate()
             DTE.ExecuteCommand("Edit.FormatDocument", "")
+        Catch ex As Exception
+            Debug.Print("error processing file: " + ex.Message)
+            errors.AppendLine("error processing file " + Item.Name + ": " + ex.Message)
+        End Try
+        Try
             window.Document.Save()
             window.Close()
-        Catch ex As Exception
-            Debug.Print("error processing file." + ex.ToString())
-            errors.Append("error processing file " + Item.Name + "  " + ex.ToString())
+        Catch
         End Try
     End Sub
 
